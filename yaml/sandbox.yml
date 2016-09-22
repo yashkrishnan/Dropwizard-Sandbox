@@ -1,0 +1,114 @@
+# Directory configurations
+webDirectory: web
+resourceDirectory: /home/yash/Workplace/Java/SandBox Dropwizard/src/main/resources
+
+# Database configurations
+mongoHost: localhost
+mongoPort: 27017
+
+# Local server
+serverAddress: http://localhost:8080
+serverHost: localhost
+serverPort: 8080
+
+# 16 character AES encryption key
+codecKeyValue: SandboxDemoApp01
+
+# Support Email Details
+noReplyTag: NoReply-SandBox
+noReplySite: no_reply@example.org
+transportHost: smtp.gmail.com
+transportProtocol: smtp
+mailSMTPHost: mail.smtp.host
+sslFactory: mail.smtp.socketFactory.class
+sslFactoryValue: javax.net.ssl.SSLSocketFactory
+mailSMTPAuth: mail.smtp.auth
+mailSMTPAuthValue: true
+sslPort: mail.smtp.socketFactory.port
+mailSMTPPort: mail.smtp.port
+smtpPortNumber: 465
+supportEmail: test@mail.com
+supportEmailPassword: abcd1234!@#$
+smtpMailRelay: smtp-relay.gmail.com
+
+# User Agent Details
+userAgent: SandBox
+androidUserAgent: SandBoxAndroidApp
+iOSUserAgent: SandBoxiOSApp
+
+# Server port number specifications
+server:
+  applicationConnectors:
+  - type: http
+    # The port on which the HTTP server listens for service requests.
+    port: 5050
+    #bindHost: 127.0.0.1 # only bind to loopback
+    headerCacheSize: 512 bytes
+    outputBufferSize: 32KiB
+    maxRequestHeaderSize: 8KiB
+    maxResponseHeaderSize: 8KiB
+    inputBufferSize: 8KiB
+    idleTimeout: 30 seconds
+    minBufferPoolSize: 64 bytes
+    bufferPoolIncrement: 1KiB
+    maxBufferPoolSize: 64KiB
+    acceptorThreads: 1
+    selectorThreads: 2
+    acceptQueueSize: 1024
+    reuseAddress: true
+    soLingerTime: 345s
+    useServerHeader: false
+    useDateHeader: true
+    useForwardedHeaders: true
+
+  adminConnectors:
+  - type: http
+    # The port on which the HTTP server listens for administrative requests.
+    port: 5051
+    #bindHost: 127.0.0.1 # only bind to loopback
+    headerCacheSize: 512 bytes
+    outputBufferSize: 32KiB
+    maxRequestHeaderSize: 8KiB
+    maxResponseHeaderSize: 8KiB
+    inputBufferSize: 8KiB
+    idleTimeout: 30 seconds
+    minBufferPoolSize: 64 bytes
+    bufferPoolIncrement: 1KiB
+    maxBufferPoolSize: 64KiB
+    acceptorThreads: 1
+    selectorThreads: 2
+    acceptQueueSize: 1024
+    reuseAddress: true
+    soLingerTime: 345s
+    useServerHeader: false
+    useDateHeader: true
+    useForwardedHeaders: true
+
+# Logging settings.
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+  # Logger-specific levels.
+  loggers:
+    # Sets the level for 'com.test.sandbox' to DEBUG.
+    com.test.sandbox: DEBUG
+
+  appenders:
+    - type: console
+      threshold: ALL
+      timeZone: UTC
+      target: stdout
+      logFormat: "%highlight(%-5level) [%d{ISO8601}] %cyan([%thread]) %magenta(%logger) %highlight(%msg) %n"
+
+    - type: file
+      threshold: ALL
+#      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: ./logs/sand-box.log
+      # When the log file rotates, the archived log will be renamed to this and gzipped. The
+      # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
+      # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
+      archivedLogFilenamePattern: ./logs/sand-box-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      # The timezone used to format dates. HINT: USE THE DEFAULT, UTC.
+      timeZone: UTC
+      maxFileSize: 10MB
