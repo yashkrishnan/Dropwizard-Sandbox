@@ -32,7 +32,7 @@ supportEmailPassword: abcd1234!@#$
 smtpMailRelay: smtp-relay.gmail.com
 
 # User Agent Details
-userAgent: SandBox
+#userAgent: SandBox
 androidUserAgent: SandBoxAndroidApp
 iOSUserAgent: SandBoxiOSApp
 
@@ -90,8 +90,8 @@ logging:
   level: INFO
   # Logger-specific levels.
   loggers:
-    # Sets the level for 'com.test.sandbox' to DEBUG.
-    com.test.sandbox: DEBUG
+    # Sets the level for 'com.exampleple.sandbox' to DEBUG.
+    com.example.sandbox: DEBUG
 
   appenders:
     - type: console
