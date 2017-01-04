@@ -57,7 +57,7 @@ public class BeanUtil {
 
         PBKDF2Hash pbkdf2Hash = PBKDF2Hash.getInstance();
         String password = user.getPassword();
-        String dbPassword = pbkdf2Hash.generateStrongPasswordHash(password);
+        String dbPassword = pbkdf2Hash.generateStrongHash(password);
         user.setPassword(dbPassword);
 
         user.setSignInCount(1);
@@ -89,7 +89,7 @@ public class BeanUtil {
         String authToken = aesCodec.encryptAES(sessionId + TextConstants.STRING_FULL_COLUMN + user.getEmail() + TextConstants.STRING_FULL_COLUMN + salt + TextConstants.STRING_FULL_COLUMN);
         user.setVerificationToken(authToken);
         user.setAuthTokens(Collections.singletonList(authToken));
-        String dbPassword = pbkdf2Hash.generateStrongPasswordHash(salt);
+        String dbPassword = pbkdf2Hash.generateStrongHash(salt);
         user.setPassword(dbPassword);
         user.setLastAlertFetched(new Date().getTime());
 

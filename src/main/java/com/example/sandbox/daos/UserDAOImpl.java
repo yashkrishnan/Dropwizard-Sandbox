@@ -251,10 +251,10 @@ public class UserDAOImpl implements UserDAO {
                 PBKDF2Hash pbkdf2Hash = PBKDF2Hash.getInstance();
                 boolean passwordsMatched = false;
                 if (currentPasswordInDB != null) {
-                    passwordsMatched = pbkdf2Hash.validatePassword(currentPasswordInRequest, currentPasswordInDB);
+                    passwordsMatched = pbkdf2Hash.validateStrongHash(currentPasswordInRequest, currentPasswordInDB);
                 }
                 if (passwordsMatched) {
-                    user.setPassword(pbkdf2Hash.generateStrongPasswordHash(newPassword));
+                    user.setPassword(pbkdf2Hash.generateStrongHash(newPassword));
                     user.setCurrentPassword(null);
                     user.setNewPassword(null);
 
@@ -367,10 +367,10 @@ public class UserDAOImpl implements UserDAO {
                 PBKDF2Hash pbkdf2Hash = PBKDF2Hash.getInstance();
                 boolean passwordsMatched = false;
                 if (currentPasswordInDB != null) {
-                    passwordsMatched = pbkdf2Hash.validatePassword(currentPasswordInRequest, currentPasswordInDB);
+                    passwordsMatched = pbkdf2Hash.validateStrongHash(currentPasswordInRequest, currentPasswordInDB);
                 }
                 if (passwordsMatched) {
-                    user.setPassword(pbkdf2Hash.generateStrongPasswordHash(newPassword));
+                    user.setPassword(pbkdf2Hash.generateStrongHash(newPassword));
                     user.setAuthTokens(new ArrayList<String>());
                     user.setTokens(new ArrayList<JSONObject>());
                 } else {

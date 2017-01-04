@@ -80,7 +80,7 @@ public class CredentialDAO {
             boolean passwordsMatched = false;
             PBKDF2Hash pbkdf2Hash = PBKDF2Hash.getInstance();
             if (dbPassword != null) {
-                passwordsMatched = pbkdf2Hash.validatePassword(password, dbPassword);
+                passwordsMatched = pbkdf2Hash.validateStrongHash(password, dbPassword);
             }
             if (passwordsMatched) {
                 String socketId = user.getSocketId();
@@ -166,7 +166,7 @@ public class CredentialDAO {
     public void resetPasswordAndTokens(String email, String password) {
         BasicDBObject query = new BasicDBObject(ApplicationConstants.EMAIL, email);
         PBKDF2Hash pbkdf2Hash = PBKDF2Hash.getInstance();
-        String dbPassword = pbkdf2Hash.generateStrongPasswordHash(password);
+        String dbPassword = pbkdf2Hash.generateStrongHash(password);
         BasicDBObject document = new BasicDBObject(DatabaseConstants.MONGO_OPERATOR_SET,
                 new BasicDBObject(ApplicationConstants.PASSWORD, dbPassword)
                         .append(ApplicationConstants.PASSWORD_RESET_TOKEN, null)
@@ -187,10 +187,10 @@ public class CredentialDAO {
             PBKDF2Hash pbkdf2Hash = PBKDF2Hash.getInstance();
             boolean passwordsMatched = false;
             if (currentPasswordInDB != null) {
-                passwordsMatched = pbkdf2Hash.validatePassword(currentPasswordInRequest, currentPasswordInDB);
+                passwordsMatched = pbkdf2Hash.validateStrongHash(currentPasswordInRequest, currentPasswordInDB);
             }
             if (passwordsMatched) {
-                String dbPassword = pbkdf2Hash.generateStrongPasswordHash(newPassword);
+                String dbPassword = pbkdf2Hash.generateStrongHash(newPassword);
                 BasicDBObject updateObject = new BasicDBObject(DatabaseConstants.MONGO_OPERATOR_SET, new BasicDBObject(ApplicationConstants.PASSWORD, dbPassword)
                         .append(ApplicationConstants.AUTH_TOKENS, Collections.singletonList(authToken)));
 

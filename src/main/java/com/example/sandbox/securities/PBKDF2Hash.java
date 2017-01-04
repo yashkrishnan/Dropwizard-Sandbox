@@ -36,7 +36,20 @@ public class PBKDF2Hash {
         return pbkdf2Hash;
     }
 
-    public String generateStrongPasswordHash(String password) {
+    public static void main(String[] args) {
+        PBKDF2Hash pbkdf2Hash = getInstance();
+        String content = "asd";
+        long time = System.currentTimeMillis();
+        String hash = pbkdf2Hash.generateStrongHash(content);
+        time = time - System.currentTimeMillis();
+        System.out.println(time + " : " + hash);
+        time = System.currentTimeMillis();
+        boolean match = pbkdf2Hash.validateStrongHash(content, hash);
+        time = time - System.currentTimeMillis();
+        System.out.println(time + " : " + match);
+    }
+
+    public String generateStrongHash(String password) {
         int iterations = SecurityConstants.ALGORITHM_ITERATIONS;
         char[] passwordChars = password.toCharArray();
         byte[] salt = getSalt();
@@ -82,7 +95,7 @@ public class PBKDF2Hash {
         }
     }
 
-    public boolean validatePassword(String originalPassword, String storedPassword) {
+    public boolean validateStrongHash(String originalPassword, String storedPassword) {
         String[] storedPasswordParts = storedPassword.split(TextConstants.STRING_FULL_COLUMN);
         int iterations = SecurityConstants.ALGORITHM_ITERATIONS;
         byte[] salt = fromHex(storedPasswordParts[0]);
